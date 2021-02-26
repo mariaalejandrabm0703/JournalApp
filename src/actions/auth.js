@@ -1,5 +1,6 @@
 import { firebase, googleAuthProvider } from "../firebase/firebase-config";
 import { types } from "../types/types";
+import { finishLoagin, startLoading } from "./ui";
 
 // action que registrará un nuevo usuario en la base de datos
 export const registerUserByNameEmailPassword = (name, email, password) => {
@@ -23,13 +24,16 @@ export const startLoginEMailPassword = (email, password) => {
   // el middleware va a ejecutar el callback cuando haga el llamado a la action
   // cuando ejecute el fetch se ejecuta el dispatch
   return (dispatch) => {
+    dispatch(startLoading());
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(({user}) => {       
         dispatch(login(user.uid, user.displayName));
+        dispatch(finishLoagin())
       }).catch((err)=>{
         console.log(err)
+        dispatch(finishLoagin())
       });
   };
 };
