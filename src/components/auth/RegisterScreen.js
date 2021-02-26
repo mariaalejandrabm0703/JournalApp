@@ -1,19 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import validator from "validator";
 import { removeError, setError } from "../../actions/ui";
+import { registerUserByNameEmailPassword } from "../../actions/auth";
 
 export const RegisterScreen = () => {
 
   const dispatch = useDispatch();
+  const { messageError } = useSelector(state => state.ui)
 
   const [formValues, handleInputChange] = useForm({
     name: "Maria",
     email: "maria@gmail.com",
-    password: "12345",
-    password2: "12345",
+    password: "123456",
+    password2: "123456",
   });
 
   const { name, email, password, password2 } = formValues;
@@ -24,20 +26,19 @@ export const RegisterScreen = () => {
     console.log(name, email, password, password2);
     if (isFormValid()) {
       console.log("formulario valido");
-    } else {
-      console.log("formulario invalido");
-    }
+      dispatch(registerUserByNameEmailPassword(name, email, password));
+    } 
   };
 
   const isFormValid = () => {
     if (name.trim().length <= 1) {
-      dispatch(setError("name invalid"))
+      dispatch(setError("Name invalid"))
       return false;
     } else if (!validator.isEmail(email)) {
-      dispatch(setError("email invalid"))
+      dispatch(setError("Email invalid"))
       return false;
     } else if (password !== password2 || password.length < 5) {
-      dispatch(setError("password invalid"))
+      dispatch(setError("Password invalid"))
       return false;
     }
     dispatch(removeError())
@@ -48,7 +49,10 @@ export const RegisterScreen = () => {
     <>
       <h3 className="auth__title">Register</h3>
 
-      <div className="auth__alert-error">Hola mundo</div>
+      {
+        messageError &&
+        <div className="auth__alert-error">{messageError}</div>
+      }
 
       <form onSubmit={handleSumit}>
         <input
