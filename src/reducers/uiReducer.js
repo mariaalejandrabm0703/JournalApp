@@ -1,21 +1,24 @@
-import types from '../types/types'
+import { types } from "../types/types";
 
 const initialState = {
-    loading: false,
-    messageError: ''
-}
+  loading: false,
+  messageError: "",
+};
 
-export const uiReducer = ( state = initialState, action) =>{
-switch (action.type) {
+export const uiReducer = (state = initialState, action) => {
+  switch (action.type) {
     case types.uiSetError:
-        
-        break;
-    
+      return {
+        ...state,
+        messageError: action.payload,
+      };
     case types.uiRemoveError:
-
-        break;
+      return {
+        ...state,
+        messageError: null,
+      };
 
     default:
-        break;
-}
-}
+      return state;
+  }
+};
