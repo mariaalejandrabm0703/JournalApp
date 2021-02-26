@@ -1,28 +1,48 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
+import validator from "validator";
 
 export const RegisterScreen = () => {
-
-
-  const [formValues, handleInputChange, reset] = useForm({
-    name: "",
-    email: "",
-    password:"",
-    password2:"",
+  const [formValues, handleInputChange] = useForm({
+    name: "Maria",
+    email: "maria@gmail.com",
+    password: "12345",
+    password2: "12345",
   });
 
-  const {name, email, password, password2} = formValues
+  const { name, email, password, password2 } = formValues;
 
-  const handleSumit = (e) =>{
+  const handleSumit = (e) => {
+    //no propagacion del formulario por la url
     e.preventDefault();
-    console.log(name, email, password, password2)
-    //reset();
-  }
+    console.log(name, email, password, password2);
+    if (isFormValid()) {
+      console.log("formulario valido");
+    } else {
+      console.log("formulario invalido");
+    }
+  };
+
+  const isFormValid = () => {
+    if (name.trim().length <= 1) {
+      console.log("name invalid");
+      return false;
+    } else if (!validator.isEmail(email)) {
+      console.log("email invalid");
+      return false;
+    } else if (password !== password2 || password.length < 5) {
+      console.log("password invalid");
+      return false;
+    }
+    return true;
+  };
 
   return (
     <>
       <h3 className="auth__title">Register</h3>
+
+      <div className="auth__alert-error">Hola mundo</div>
 
       <form onSubmit={handleSumit}>
         <input
