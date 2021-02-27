@@ -1,35 +1,45 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect
-  } from 'react-router-dom';
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import { firebase } from "../firebase/firebase-config";
 
-import { AuthRouter } from './AuthRouter';
-import { JournalScreen } from '../components/journal/JournalScreen';
+import { AuthRouter } from "./AuthRouter";
+import { JournalScreen } from "../components/journal/JournalScreen";
+import { useDispatch } from "react-redux";
+import { login } from "../actions/auth";
 
 export const AppRouter = () => {
-    return (
-        <Router>
-            <div>
-                <Switch>
-                    <Route 
-                        path="/auth"
-                        component={ AuthRouter }
-                    />
+  const dispatch = useDispatch();
 
-                    <Route 
-                        exact
-                        path="/"
-                        component={ JournalScreen }
-                    />
+  useEffect(() => {
+    // retornar un observable que es un tipo de objeto especial
+    // que se puede disparar mas de una vez
+    // si la autentificacion se ejecuta o cambia
+    // el callback siempre se va a ejecutar
+    // el observable se queda escuchando siempre el cambio
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user?.uid) {
+        dispatch(login(user.uid, user.displayName));
+      }
+    });
+  }, [dispatch]);
 
-                    <Redirect to="/auth/login" />
+  return (
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/auth" component={AuthRouter} />
 
+          <Route exact path="/" component={JournalScreen} />
 
-                </Switch>
-            </div>
-        </Router>
-    )
-}
+          <Redirect to="/auth/login" />
+        </Switch>
+      </div>
+    </Router>
+  );
+};
