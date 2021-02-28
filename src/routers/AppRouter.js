@@ -18,7 +18,7 @@ export const AppRouter = () => {
   useEffect(() => {
     // retornar un observable que es un tipo de objeto especial
     // que se puede disparar mas de una vez
-    // si la autentificacion se ejecuta o cambia
+    // si la autenticacion se ejecuta o cambia
     // el callback siempre se va a ejecutar
     // el observable se queda escuchando siempre el cambio
     firebase.auth().onAuthStateChanged((user) => {
