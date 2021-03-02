@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,6 +14,8 @@ import { login } from "../actions/auth";
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
+  const [cheking, setcheking] = useState(true);
+  const [isLoggedIn, setisLoggedIn] = useState(false);
 
   useEffect(() => {
     // retornar un observable que es un tipo de objeto especial
@@ -22,12 +24,20 @@ export const AppRouter = () => {
     // el callback siempre se va a ejecutar
     // el observable se queda escuchando siempre el cambio
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user);
       if (user?.uid) {
         dispatch(login(user.uid, user.displayName));
+        setisLoggedIn(true);
+      } else {
+        setisLoggedIn(false);
       }
+
+      setcheking(false);
     });
-  }, [dispatch]);
+  }, [dispatch, setcheking, setisLoggedIn]);
+
+  if (cheking) {
+    return <h1>ESpere...</h1>;
+  }
 
   return (
     <Router>

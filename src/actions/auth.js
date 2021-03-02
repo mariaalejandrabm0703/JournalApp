@@ -2,7 +2,7 @@ import { firebase, googleAuthProvider } from "../firebase/firebase-config";
 import { types } from "../types/types";
 import { finishLoagin, startLoading } from "./ui";
 
-// action que registrará un nuevo usuario en la base de datos
+// action que registrará un nuevo usuario en la base de datos con firebase
 export const registerUserByNameEmailPassword = (name, email, password) => {
   //tarea asincrona porque va a ir a registrar al firebase
   // se retornará un callback
@@ -10,15 +10,16 @@ export const registerUserByNameEmailPassword = (name, email, password) => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(async({user}) => {
-        await user.updateProfile({displayName:name})
+      .then(async ({ user }) => {
+        await user.updateProfile({ displayName: name });
         dispatch(login(user.uid, user.displayName));
-      }).catch((err)=>{
-        console.log(err)
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 };
-
+// action de login con firebase
 export const startLoginEMailPassword = (email, password) => {
   //action asincrona, devuelve un callback
   // el middleware va a ejecutar el callback cuando haga el llamado a la action
@@ -28,12 +29,13 @@ export const startLoginEMailPassword = (email, password) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(({user}) => {       
+      .then(({ user }) => {
         dispatch(login(user.uid, user.displayName));
-        dispatch(finishLoagin())
-      }).catch((err)=>{
-        console.log(err)
-        dispatch(finishLoagin())
+        dispatch(finishLoagin());
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(finishLoagin());
       });
   };
 };
@@ -52,7 +54,7 @@ export const googleAuth = () => {
   };
 };
 
-// actions para el dispatch de login
+// actions para el dispatch de login con store
 export const login = (uid, displayName) => {
   return {
     type: types.login,
@@ -62,3 +64,16 @@ export const login = (uid, displayName) => {
     },
   };
 };
+
+// action logout asincrona sin parametros
+export const startLogout = () => {
+  return (dispatch) => {
+    firebase.auth().signOut();
+    dispatch(logout());
+  };
+};
+
+// action que elimina el usuario y uid del store
+export const logout = () => ({
+  type: types.logout,
+});
