@@ -37,7 +37,7 @@ export const AppRouter = () => {
   }, [dispatch, setcheking, setisLoggedIn]);
 
   if (cheking) {
-    return <h1>ESpere...</h1>;
+    return <h1>Wait...</h1>;
     // colocar la pagina de espera o un loading
   }
 
