@@ -53,7 +53,7 @@ export const AppRouter = () => {
           <PrivateRoute
             exact
             isAuthenticated={isLoggedIn}
-            path="/"
+            path="/journal"
             component={JournalScreen}
           />
           <Redirect to="/auth/login" />
