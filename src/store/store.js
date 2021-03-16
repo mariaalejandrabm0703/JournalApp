@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import ReduxThunk from "redux-thunk";
 
 import { authReducer } from "../reducers/authReducer";
+import { notesReducer } from "../reducers/notesReducer";
 import { uiReducer } from "../reducers/uiReducer";
 
 const composeEnhancers =
@@ -12,9 +13,11 @@ const composeEnhancers =
 //combina reducers de varias funcionalidades que necesites
 const reducers = combineReducers({
   auth: authReducer,
-  ui: uiReducer
+  ui: uiReducer,
+  notes: notesReducer
 });
 // solo recibe un solo reducer
+// adiciona los middleware
 export const store = createStore(
   reducers,
   composeEnhancers(applyMiddleware(ReduxThunk))
