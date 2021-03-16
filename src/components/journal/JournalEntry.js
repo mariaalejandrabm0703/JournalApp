@@ -1,13 +1,19 @@
 import React from "react";
-import moment from 'moment';
+import moment from "moment";
+import { useDispatch } from "react-redux";
+import { activeNote } from "../../actions/notes";
 
 export const JournalEntry = ({ note }) => {
+  const noteDate = moment(note.date);
+  const dispatch = useDispatch();
 
-const noteDate = moment(note.date)
-console.log(noteDate)
+  const handleEntryClick = (e) => {
+    e.preventDefault();
+    dispatch(activeNote(note.id, note));
+  };
 
   return (
-    <div className="journal__entry pointer">
+    <div className="journal__entry pointer" onClick={handleEntryClick}>
       {note.url && (
         <div
           className="journal__entry-picture"
@@ -24,8 +30,8 @@ console.log(noteDate)
       </div>
 
       <div className="journal__entry-date-box">
-        <span>{noteDate.format('dddd')}</span>
-        <h4>{noteDate.format('Do')}</h4>
+        <span>{noteDate.format("dddd")}</span>
+        <h4>{noteDate.format("Do")}</h4>
       </div>
     </div>
   );
