@@ -9,7 +9,7 @@ export const startNewNote = () => {
     const newNote = {
       tittle: "nuevo",
       body: "nuevo body",
-      date: new Date().getTime(),
+      date: new Date().toDateString(),
     };
     // metodo add devuelve una promesa y resuelve el document reference
     const docRef = await db.collection(`${uid}/journal/notes`).add(newNote);
