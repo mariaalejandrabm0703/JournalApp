@@ -16,7 +16,7 @@ export const registerUserByNameEmailPassword = (name, email, password) => {
         dispatch(login(user.uid, user.displayName));
       })
       .catch((err) => {
-        console.log(err);
+        Swal.fire("Error in authentication", err.message,'error')
       });
   };
 };
@@ -35,7 +35,6 @@ export const startLoginEMailPassword = (email, password) => {
         dispatch(finishLoagin());
       })
       .catch((err) => {
-        console.log(err);
         dispatch(finishLoagin());
         Swal.fire("Error in authentication", err.message,'error')
       });

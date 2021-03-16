@@ -17,7 +17,6 @@ export const LoginScreen = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(email, password);
     dispatch(startLoginEMailPassword(email, password));
     reset();
   };

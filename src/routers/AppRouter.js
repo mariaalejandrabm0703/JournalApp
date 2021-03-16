@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 import { login } from "../actions/auth";
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
+import { loadNotes } from "../helpers/loadNotes";
+import { setNotes } from "../actions/notes";
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -24,10 +26,14 @@ export const AppRouter = () => {
     // si la autenticacion se ejecuta o cambia
     // el callback siempre se va a ejecutar
     // el observable se queda escuchando siempre el cambio
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       if (user?.uid) {
         dispatch(login(user.uid, user.displayName));
         setisLoggedIn(true);
+
+        // se obtienen los datos
+        const notes = await loadNotes(user.uid);
+        dispatch(setNotes(notes));
       } else {
         setisLoggedIn(false);
       }

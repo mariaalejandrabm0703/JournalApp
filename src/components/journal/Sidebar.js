@@ -11,7 +11,6 @@ export const Sidebar = () => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(startLogout())
-    console.log('logout')
   };
 
   const handleAddEntry = () =>{

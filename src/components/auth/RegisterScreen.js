@@ -23,9 +23,7 @@ export const RegisterScreen = () => {
   const handleSumit = (e) => {
     //no propagacion del formulario por la url
     e.preventDefault();
-    console.log(name, email, password, password2);
     if (isFormValid()) {
-      console.log("formulario valido");
       dispatch(registerUserByNameEmailPassword(name, email, password));
     } 
   };
