@@ -25,7 +25,7 @@ export const JournalEntry = ({ note }) => {
       )}
 
       <div className="journal__entry-body">
-        <p className="journal__entry-title">{note.tittle}</p>
+        <p className="journal__entry-title">{note.title}</p>
         <p className="journal__entry-content">{note.body}</p>
       </div>
 

@@ -8,9 +8,8 @@ export const NoteScreen = () => {
   const dispatch = useDispatch();
 
   const { active: note } = useSelector((state) => state.notes);
-
   const [formValues, handleInputChange, reset] = useForm(note);
-  const { tittle, body } = formValues;
+  const { title, body } = formValues;
 
   const activeId = useRef(note.id);
 
@@ -39,8 +38,8 @@ export const NoteScreen = () => {
           placeholder="Some awesome title"
           className="notes__title-input"
           autoComplete="off"
-          name="tittle"
-          value={tittle}
+          name="title"
+          value={title}
           onChange={handleInputChange}
         />
 
