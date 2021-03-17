@@ -10,11 +10,13 @@ export const NotesAppBar = () => {
     dispatch(startSaveNote(active));
   };
 
-  const handlePicture = () => {
+  const handlePicture = (e) => {
+    
     document.querySelector('#fileSelector').click();
   };
 
   const handleFileChange = (e) => {
+      e.preventDefault();
       const file = e.target.files[0]
       if(file){
         dispatch(startUpLoading(file));
@@ -22,7 +24,7 @@ export const NotesAppBar = () => {
   };
 
   return (
-    <div className="notes__appbar" onClick={handlePicture}>
+    <div className="notes__appbar" >
       <span>{active.date}</span>
 
       <input
@@ -30,6 +32,7 @@ export const NotesAppBar = () => {
         type="file"
         style={{ display: "none" }}
         onChange={handleFileChange}
+        onClick={handlePicture}
       />
 
       <div>

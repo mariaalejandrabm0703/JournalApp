@@ -48,6 +48,10 @@ export const startSaveNote = (note) => {
   return async (dispatch, getState) => {
     const uid = getState().auth.uid;
 
+    if(!note.url){
+      delete note.url;
+    }
+
     const saveNote = { ...note };
     delete saveNote.id;
 
@@ -71,10 +75,18 @@ export const refresNotes = (id, note) => ({
 export const startUpLoading =  (file) =>{
   return async (dispatch, getState) => {
     
-    const {active: activeNote} = getState().notes;
+    const {active} = getState().notes;
 
     const fileUrl = await fileUpload(file);
 
+    const newNote = {
+      ...active,
+      url:  fileUrl
+    };
+
+    dispatch(startSaveNote(newNote));
+
     console.log(fileUrl)
+
   };
 }
