@@ -26,14 +26,29 @@ export const activeNote = (id, note) => ({
 });
 
 export const startLoadingNotes = (uid) => {
-    return async (dispatch) =>{
-        // se obtienen los datos de las notas
-        const notes = await loadNotes(uid);
-        dispatch(setNotes(notes));
-    }
+  return async (dispatch) => {
+    // se obtienen los datos de las notas
+    const notes = await loadNotes(uid);
+    dispatch(setNotes(notes));
+  };
 };
 
 export const setNotes = (notes) => ({
   type: types.notesLoadEntrys,
   payload: notes,
 });
+
+export const startSaveNote = (note) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid;
+
+    const saveNote = { ...note };
+    delete saveNote.id;
+    console.log(saveNote)
+
+    // metodo guardar en la base de datos
+    await db.doc(`/${uid}/journal/notes/${note.id}`).update(saveNote);
+    // vuelve a cargar las notas
+    dispatch(startLoadingNotes(uid));
+  };
+};
