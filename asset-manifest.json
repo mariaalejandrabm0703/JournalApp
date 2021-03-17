@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/JournalApp/static/css/main.efee262e.chunk.css",
+    "main.js": "/JournalApp/static/js/main.d8630187.chunk.js",
+    "main.js.map": "/JournalApp/static/js/main.d8630187.chunk.js.map",
+    "runtime-main.js": "/JournalApp/static/js/runtime-main.57020a02.js",
+    "runtime-main.js.map": "/JournalApp/static/js/runtime-main.57020a02.js.map",
+    "static/js/2.05f02a6a.chunk.js": "/JournalApp/static/js/2.05f02a6a.chunk.js",
+    "static/js/2.05f02a6a.chunk.js.map": "/JournalApp/static/js/2.05f02a6a.chunk.js.map",
+    "index.html": "/JournalApp/index.html",
+    "precache-manifest.07d6936dcbb14b38760ef51e3cbe2c01.js": "/JournalApp/precache-manifest.07d6936dcbb14b38760ef51e3cbe2c01.js",
+    "service-worker.js": "/JournalApp/service-worker.js",
+    "static/css/main.efee262e.chunk.css.map": "/JournalApp/static/css/main.efee262e.chunk.css.map",
+    "static/js/2.05f02a6a.chunk.js.LICENSE.txt": "/JournalApp/static/js/2.05f02a6a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.57020a02.js",
+    "static/js/2.05f02a6a.chunk.js",
+    "static/css/main.efee262e.chunk.css",
+    "static/js/main.d8630187.chunk.js"
+  ]
+}
