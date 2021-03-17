@@ -2,6 +2,10 @@ import { db } from "../firebase/firebase-config";
 import { loadNotes } from "../helpers/loadNotes";
 import { types } from "../types/types";
 import Swal from 'sweetalert2';
+import { fileUpload } from "../helpers/fileUpload";
+
+// https://api.cloudinary.com/v1_1/davleem9s
+//react-journal
 
 export const startNewNote = () => {
   return async (dispatch, getState) => {
@@ -63,3 +67,14 @@ export const refresNotes = (id, note) => ({
     note,
   },
 });
+
+export const startUpLoading =  (file) =>{
+  return async (dispatch, getState) => {
+    
+    const {active: activeNote} = getState().notes;
+
+    const fileUrl = await fileUpload(file);
+
+    console.log(fileUrl)
+  };
+}
