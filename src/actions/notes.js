@@ -56,7 +56,7 @@ export const startSaveNote = (note) => {
     delete saveNote.id;
 
     // metodo guardar en la base de datos
-    await db.doc(`/${uid}/journal/notes/${note.id}`).update(saveNote);
+    await db.doc(`${uid}/journal/notes/${note.id}`).update(saveNote);
     // vuelve a cargar las notas
     // carga inicial solamente dispatch(startLoadingNotes(uid));
     dispatch(refresNotes(note.id, note));
@@ -89,4 +89,17 @@ export const startUpLoading =  (file) =>{
     console.log(fileUrl)
 
   };
+}
+
+export const startDeleting = (id) =>{
+
+  return async (dispatch, getState) =>{
+    const uid = getState().auth.uid;
+
+    await db.doc(`${uid}/journal/notes/${id}`).delete();
+
+    dispatch(startLoadingNotes(uid));
+    dispatch(activeNote(id, null));
+    Swal.fire('Delete', 'Nota', 'success')
+  }
 }
