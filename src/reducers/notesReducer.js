@@ -28,11 +28,12 @@ export const notesReducer = (state = initialState, action) => {
       case types.notesUpdateEntry:
         return{
           ...state,
-          notes:state.notes.map(
-            note=> note.id === action.payload.id
-            ? action.payload.note
-            : note
-          )
+          active: null,
+          notes:[]
+        }
+      case types.notesLogoutCleaning:
+        return{
+
         }
     default:
       return state;

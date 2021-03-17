@@ -2,6 +2,7 @@ import { firebase, googleAuthProvider } from "../firebase/firebase-config";
 import { types } from "../types/types";
 import { finishLoagin, startLoading } from "./ui";
 import Swal from 'sweetalert2'
+import { noteLogout } from "./notes";
 
 // action que registrará un nuevo usuario en la base de datos con firebase
 export const registerUserByNameEmailPassword = (name, email, password) => {
@@ -68,9 +69,10 @@ export const login = (uid, displayName) => {
 
 // action logout asincrona sin parametros
 export const startLogout = () => {
-  return (dispatch) => {
-    firebase.auth().signOut();
+  return async (dispatch) => {
+    await firebase.auth().signOut();
     dispatch(logout());
+    dispatch(noteLogout());
   };
 };
 

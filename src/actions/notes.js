@@ -103,3 +103,7 @@ export const startDeleting = (id) =>{
     Swal.fire('Delete', 'Nota', 'success')
   }
 }
+
+export const noteLogout = () =>({
+type: types.notesLogoutCleaning
+})
